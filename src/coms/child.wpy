@@ -1,0 +1,62 @@
+<style lang="less">
+
+</style>
+<template>
+  <view>{{text}}</view>
+  <view @tap="bindTapInvoke">invoke</view>
+</template>
+<script>
+import wepy from 'wepy'
+import Com from './com'
+export default class Child extends wepy.component {
+  data = {
+    text: 'hello child'
+  }
+  props = {
+    title: String,
+    syncTitle: {
+      type: String,
+      default: 'null'
+    },
+    twoWayTitle: {
+      type: Number,
+      default: 50,
+      twoWay: true
+    }
+  }
+  components = {
+    com: Com
+  }
+  events = {
+    'broadcast-event': (...args) => {
+      let $event = args[args.length-1];
+      console.log(`${this.name} receive ${$event.name} from ${$event.source.name} json ${Object.keys($event)}
+      active: ${$event.active}
+      name: ${$event.name}
+      source: ${$event.source} => ${Object.keys($event.source)}
+      type: ${$event.type}`);
+    }
+  }
+  methods = {
+      bindTapInvoke() {
+        this.$invoke('com', 'hello')
+      }
+  }
+  config = {}
+  onLoad() { 
+    console.log(this.title); // p-title
+    console.log(this.syncTitle); // p-title
+    console.log(this.twoWayTitle); // 50
+
+    this.title = 'c-title';
+    console.log(this.$parent.parentTitle); // p-title.
+    this.twoWayTitle = 60;
+    console.log(this.syncTitle);
+    console.log(this.$parent.parentTitle); // 60.  --- twoWay为true时，子组件props修改会改变父组件对应的值
+    this.$parent.parentTitle = 'p-title-changed';
+    console.log(this.title); // 'p-title';
+    console.log(this.syncTitle); // 'p-title-changed' --- 有sync属性的props，当父组件改变时，会影响子组件的值。
+  }
+}
+</script>
+

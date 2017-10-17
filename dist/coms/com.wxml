@@ -1,0 +1,3 @@
+
+  <view>com</view>
+  <view bindtap="bindTap">click</view>

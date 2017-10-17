@@ -1,0 +1,32 @@
+
+  <view class="container">
+    Hello world
+  </view>
+  <!-- <repeat for="{{list}}" key="index" index="index" item="item">
+      <child v-bind:item.once="item"></child>
+  </repeat> -->
+  
+  <view>{{$child$text}}</view>
+  <view bindtap="$child$bindTapInvoke">invoke</view>
+
+  <!-- <view>
+    <view bindtap="bindTap">broadcast</view>
+  </view> -->
+  <view>
+    
+  <view>com</view>
+  <view bindtap="$com$bindTap">click</view>
+
+  </view>
+  
+  <view class="panel">
+    <view>my title</view>
+    
+    <view>
+      <text>这是我放到的内容</text>
+    </view>
+    
+  
+  </view>
+
+  <view/>

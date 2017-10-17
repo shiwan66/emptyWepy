@@ -1,0 +1,62 @@
+<style lang="less">
+</style>
+<template>
+  <view class="container">
+    Hello world
+  </view>
+  <!-- <repeat for="{{list}}" key="index" index="index" item="item">
+      <child :item="item"></child>
+  </repeat> -->
+  <child :title="parentTitle" :syncTitle.sync="parentTitle" :twoWayTitle="parentTitle"></child>
+  <!-- <view>
+    <view @tap="bindTap">broadcast</view>
+  </view> -->
+  <view>
+    <com></com>
+  </view>
+  <panel>
+    <view>
+      <text>这是我放到的内容</text>
+    </view>
+    <view slot="title">my title</view>
+  </panel>
+  <view></view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Child from '../coms/child'
+  import Com from '../coms/com'
+  import Panel from '../coms/panel'
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'test'
+    };
+    data = {
+      parentTitle: 'p-title',
+      list: [{id: 1, title: 'title1'}, {id: 2, title: 'title2'}]
+    };
+    components = {
+      child: Child,
+      com: Com,
+      panel: Panel
+    };
+    methods= {
+      bindTap() {
+        this.$broadcast('broadcast-event', 1, 2, 3, 4)
+      }
+    };
+    events = {
+        'some-event': (p1, p2, p3, p4, $event) => {
+          console.log(`${this.name} receive ${$event.name} from ${$event.source.name} json ${Object.keys($event)}
+          active: ${$event.active}
+          name: ${$event.name}
+          source: ${$event.source} => ${Object.keys($event.source)}
+          type: ${$event.type}`);
+        }
+    }
+    onLoad() {
+      console.log('onLoad')
+    }
+  }
+</script>

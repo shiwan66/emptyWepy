@@ -1,0 +1,3 @@
+
+  <view>{{text}}</view>
+  <view bindtap="bindTapInvoke">invoke</view>

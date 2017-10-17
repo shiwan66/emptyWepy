@@ -1,0 +1,4 @@
+
+  <view bindtap="tap">click</view>
+  <!-- <com></com> -->
+  <view>{{foo}}</view>

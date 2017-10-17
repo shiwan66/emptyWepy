@@ -1,0 +1,34 @@
+<style lang="less">
+
+</style>
+<template>
+  <view @tap="tap">click</view>
+  <!-- <com></com> -->
+  <view>{{foo}}</view>
+</template>
+<script>
+import wepy from 'wepy'
+import TestMixin from '../mixins/test'
+import Com from '../coms/com'
+export default class Logs extends wepy.page {
+  components = {
+      com: Com
+  }
+  data = {
+      foo: 'foo defined by logs'
+  };
+  config = {}
+  mixins = [TestMixin];
+  methods = {
+    tap() {
+        console.log('tap form logs page')
+        setTimeout(() => {this.foo = 'change foo'; this.$apply();}, 200)
+    }
+  }
+  onShow() {
+    console.log(this.foo); // foo defined by index.
+    console.log(this.bar); // foo defined by testMix.
+  }
+}
+</script>
+

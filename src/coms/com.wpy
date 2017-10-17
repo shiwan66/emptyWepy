@@ -1,0 +1,27 @@
+<style>
+
+</style>
+
+<template>
+  <view>com</view>
+  <view @tap="bindTap">click</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+export default class Com extends wepy.component {
+  data = {};
+  methods = {
+    bindTap() {
+      console.log('into click')
+      this.$emit('some-event', 1, 2, 3, 4);
+      this.$emit('event-emit')
+    }
+  };
+  events = {
+  };
+  hello() {
+    console.log('com hello')
+  }
+}
+</script>
